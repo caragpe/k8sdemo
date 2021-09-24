@@ -30,8 +30,18 @@ There are two services, integrated in each deployment file to facilitate reading
 - **usersapi-service**
   Similarly to above, it allows connectivity to the API pod(s) based on a public ip address and a public port, different from the port that our API application is listening to. This is acting as a load balancer.
 
+## Horizontal Pod Autoscaler
+
+We want to be able to smoothly scale up/down based on CPU for our API pod(s). We achieve this by creating an HPA component that fluctuates between 1 and 10 pods, trying to keep an average usage of all CPUs below 70%.
+
+Once that average usage goes over the limit, our HPA will try to spin up a new usersapi pod (if possible) to load balance the requests.
+
+Additionally, the deployment for usersapi has a cap on 80% CPU usage, in order to try to keep our pods alive.
+
 # Notes
 
+## Rolling deployments and rollbacks
+At this stage, updating the corresponding deployment file will allow to perform rollbacks and rolling deployments smoothly.
 ## Limitation on the database component
 As you can see, there is no **description about the persistance off the database component**. For now, this may be out of scope for this demo, but the end goal would be to either remove the database deployment and use a regular database instance, or keep the database pod and connect it to a volume component where data persists in case the pod/replica set/database deployment is deleted.
 
