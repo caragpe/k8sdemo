@@ -41,7 +41,7 @@ Additionally, the deployment for usersapi has a cap on 80% CPU usage, in order t
 # Notes
 
 ## Rolling deployments and rollbacks
-At this stage, updating the corresponding deployment file will allow to perform rollbacks and rolling deployments smoothly.
+At this stage, updating the corresponding deployment file will allow to perform rollbacks and rolling deployments smoothly by modifying the container image name.
 ## Limitation on the database component
 As you can see, there is no **description about the persistance off the database component**. For now, this may be out of scope for this demo, but the end goal would be to either remove the database deployment and use a regular database instance, or keep the database pod and connect it to a volume component where data persists in case the pod/replica set/database deployment is deleted.
 
