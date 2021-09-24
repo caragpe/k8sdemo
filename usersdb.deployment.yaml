@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usersdb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usersdb
+  template:
+    metadata:
+      labels:
+        app: usersdb
+    spec:
+      containers:
+      - name: usersdb
+        image: mariadb
+        ports:
+          - name: http
+            containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: usersdb-secret
+              key: usersdb_username
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: usersdb-secret
+              key: usersdb_password
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: usersdb-secret
+              key: root_db_password
+        - name: MARIADB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: db-configmap
+              key: usersdb_database_name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: usersdb-service
+spec:
+  selector:
+    app: usersdb
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: variables-configmap
+data:
+  users_database_url: usersdb-service
+  shifts_database_url: shiftsdb-service
+  usersdb_database_name: users

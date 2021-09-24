@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usersapi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usersapi
+  template:
+    metadata:
+      labels:
+        app: usersapi
+    spec:
+      containers:
+      - name: usersapi
+        image: wordpress
+        ports:
+          - name: http
+            containerPort: 80
+        env:
+        - name: WORDPRESS_DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: variables-configmap
+              key: users_database_url
+        - name: WORDPRESS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: usersdb-secret
+              key: usersdb_username
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: usersdb-secret
+              key: usersdb_password
+        - name: WORDPRESS_DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: variables-configmap
+              key: usersdb_database_name
+      resources:
+        limits:
+          cpu: "0.8"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: usersapi-service
+spec:
+  selector:
+    app: usersapi
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30000
