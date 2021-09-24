@@ -40,6 +40,23 @@ Additionally, the deployment for usersapi has a cap on 80% CPU usage, in order t
 
 # Notes
 
+## How to apply this infra
+It is recommended to deploy first the `usersdb.secret.yaml` and `variables.configmap.yaml`, prior to anything else, as some secrets/variables are required by the rest of the components.
+
+You can do it using the following steps:
+
+```
+kubectl apply -f usersdb.secret.yaml
+kubectl apply -f variables.configmap.yaml
+```
+
+Then, you can apply the rest of the components:
+
+```
+kubectl apply -f usersdb.deployment.yaml
+kubectl apply -f usersapi.deployment.yaml
+kubectl apply -f usersapi.autoscale.yaml
+```
 ## Rolling deployments and rollbacks
 At this stage, updating the corresponding deployment file will allow to perform rollbacks and rolling deployments smoothly by modifying the container image name.
 ## Limitation on the database component
