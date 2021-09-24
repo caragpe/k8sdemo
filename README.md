@@ -40,6 +40,39 @@ Additionally, the deployment for usersapi has a cap on 80% CPU usage, in order t
 
 # Notes
 
+## Local setup
+
+This demo was prepared using the following tools in my local environment:
+
+- **minikube** 
+  - v1.23.1
+- **hyperkit** 
+  - v0.20210107-9-gacbc2d
+- **kubectl** (as part of minikube)
+  ```
+  Client Version: version.Info{
+    Major:"1", 
+    Minor:"21", 
+    GitVersion:"v1.21.3",
+    GitCommit:"ca643a4d1f7bfe34773c74f79527be4afd95bf39,
+    GitTreeState:"clean", BuildDate:"2021-07-15T21:04:39Z",
+    GoVersion:"go1.16.6",
+    Compiler:"gc",
+    Platform:"darwin/amd64"}
+  
+  Server Version: version.Info{
+    Major:"1",
+    Minor:"22",
+    GitVersion:"v1.22.1",
+    GitCommit:"632ed300f2c34f6d6d15ca4cef3d3c7073412212,
+    GitTreeState:"clean",
+    BuildDate:"2021-08-19T15:39:34Z",
+    GoVersion:"go1.16.7",
+    Compiler:"gc",
+    Platform:"linux/amd64"}
+  ```
+
+
 ## How to apply this infra
 It is recommended to deploy first the `usersdb.secret.yaml` and `variables.configmap.yaml`, prior to anything else, as some secrets/variables are required by the rest of the components.
 
