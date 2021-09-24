@@ -93,7 +93,7 @@ kubectl apply -f usersapi.autoscale.yaml
 ## Rolling deployments and rollbacks
 At this stage, updating the corresponding deployment file will allow to perform rollbacks and rolling deployments smoothly by modifying the container image name.
 ## Limitation on the database component
-As you can see, there is no **description about the persistance off the database component**. For now, this may be out of scope for this demo, but the end goal would be to either remove the database deployment and use a regular database instance, or keep the database pod and connect it to a volume component where data persists in case the pod/replica set/database deployment is deleted.
+As you can see, there is no **description about the persistance of the database component**. For now, this may be out of scope for this demo, but the end goal would be to either remove the database deployment and use a regular database instance, or keep the database pod and connect it to a volume component where data persists in case the pod/replica set/database deployment is deleted.
 
 ## Limitations on the load balancer component
 The use case describe here is mean for local/development usage. In a real scenario we would like to access `https://my-example-api.com`, for example, and access our API service directly, without needing to know the port.
